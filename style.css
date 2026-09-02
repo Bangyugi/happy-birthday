@@ -1313,143 +1313,82 @@ html, body {
   }
 }
 
+
+
 /* ==========================================================================
-   BACKGROUND MUSIC (BGM) CONTROLLER WIDGET
+   Curtain Wind Flutter & Sway Animations
    ========================================================================== */
-.bgm-widget {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 100;
-  user-select: none;
+.curtain-anim-base,
+.curtain-anim-mid,
+.curtain-anim-edge {
+  transform-origin: 0px 0px;
+  transform-box: view-box;
+  will-change: transform;
 }
 
-.bgm-btn {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(14, 22, 36, 0.72);
-  border: 1.5px solid rgba(138, 180, 226, 0.28);
-  border-radius: 40px;
-  padding: 6px 16px 6px 8px;
-  color: #e2ecf8;
-  cursor: pointer;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4),
-              inset 0 1px 1px rgba(255, 255, 255, 0.15);
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  outline: none;
+.curtain-anim-base {
+  animation: curtain-sway-base 9.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate-reverse;
 }
 
-.bgm-btn:hover {
-  background: rgba(20, 32, 52, 0.88);
-  border-color: rgba(255, 215, 0, 0.5);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55),
-              0 0 16px rgba(255, 215, 0, 0.2);
-  transform: translateY(-2px);
+.curtain-anim-mid {
+  animation: curtain-sway-mid 7.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate-reverse 0.8s;
 }
 
-.bgm-btn:active {
-  transform: translateY(0) scale(0.97);
+.curtain-anim-edge {
+  animation: curtain-sway-edge 5.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate-reverse 1.5s;
 }
 
-/* Vinyl Disc */
-.bgm-vinyl {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #2d3848 25%, #111824 45%, #242f40 70%, #0d131c 100%);
-  border: 2px solid #3d4f68;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  transition: transform 0.4s ease;
+.curtain-moonbeam-pulse {
+  animation: curtain-beam-pulse 6.8s ease-in-out infinite alternate;
 }
 
-.bgm-icon {
-  font-size: 15px;
-  display: inline-block;
-  line-height: 1;
-}
-
-/* Rotating Vinyl when Playing */
-.bgm-btn.is-playing .bgm-vinyl {
-  animation: bgm-vinyl-spin 4s linear infinite;
-  border-color: #ffd700;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
-}
-
-@keyframes bgm-vinyl-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Music Info */
-.bgm-info {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  line-height: 1.25;
-}
-
-.bgm-title {
-  font-family: 'Be Vietnam Pro', 'Plus Jakarta Sans', sans-serif;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: #f5f8fc;
-  letter-spacing: 0.3px;
-  white-space: nowrap;
-}
-
-.bgm-artist {
-  font-family: 'Be Vietnam Pro', 'Plus Jakarta Sans', sans-serif;
-  font-size: 10.5px;
-  font-weight: 400;
-  color: #9cb3cc;
-  white-space: nowrap;
-}
-
-/* Equalizer Waves */
-.bgm-equalizer {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 16px;
-  margin-left: 4px;
-}
-
-.eq-bar {
-  width: 3px;
-  height: 4px;
-  background: #78a8d6;
-  border-radius: 2px;
-  transition: height 0.2s ease, background 0.3s ease;
-}
-
-.bgm-btn.is-playing .eq-bar {
-  background: #ffd700;
-}
-
-.bgm-btn.is-playing .bar-1 { animation: eq-bounce 0.8s infinite ease-in-out alternate; }
-.bgm-btn.is-playing .bar-2 { animation: eq-bounce 0.6s 0.2s infinite ease-in-out alternate; }
-.bgm-btn.is-playing .bar-3 { animation: eq-bounce 0.9s 0.4s infinite ease-in-out alternate; }
-.bgm-btn.is-playing .bar-4 { animation: eq-bounce 0.7s 0.1s infinite ease-in-out alternate; }
-
-@keyframes eq-bounce {
-  0% { height: 3px; }
-  100% { height: 16px; }
-}
-
-@media (max-width: 600px) {
-  .bgm-widget {
-    top: 14px;
-    right: 14px;
+@keyframes curtain-sway-base {
+  0% {
+    transform: skewX(0deg) rotate(0deg) translateX(0px);
   }
-  .bgm-info {
-    display: none;
+  50% {
+    transform: skewX(-0.5deg) rotate(-0.18deg) translateX(1px);
+  }
+  100% {
+    transform: skewX(-1.2deg) rotate(-0.4deg) translateX(2.5px);
   }
 }
+
+@keyframes curtain-sway-mid {
+  0% {
+    transform: skewX(0deg) scaleX(1) rotate(0deg) translateX(0px);
+  }
+  50% {
+    transform: skewX(-1.3deg) scaleX(1.015) rotate(-0.45deg) translateX(3px);
+  }
+  100% {
+    transform: skewX(-2.5deg) scaleX(1.03) rotate(-0.85deg) translateX(6px);
+  }
+}
+
+@keyframes curtain-sway-edge {
+  0% {
+    transform: skewX(0deg) scaleX(1) rotate(0deg) translateX(0px);
+  }
+  40% {
+    transform: skewX(-2deg) scaleX(1.025) rotate(-0.7deg) translateX(5px);
+  }
+  100% {
+    transform: skewX(-4.2deg) scaleX(1.055) rotate(-1.5deg) translateX(10px);
+  }
+}
+
+@keyframes curtain-beam-pulse {
+  0% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.48;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
 
 

@@ -13,25 +13,6 @@
 </head>
 
 <body>
-  <!-- Floating Background Music Controller Widget -->
-  <div class="bgm-widget" id="bgm-widget" title="Nhạc nền: A Story About Us - BigRicePiano">
-    <button class="bgm-btn" id="bgm-toggle-btn" aria-label="Bật/Tắt nhạc nền">
-      <div class="bgm-vinyl">
-        <span class="bgm-icon">🎵</span>
-      </div>
-      <div class="bgm-info">
-        <span class="bgm-title">A Story About Us</span>
-        <span class="bgm-artist">BigRicePiano</span>
-      </div>
-      <div class="bgm-equalizer">
-        <span class="eq-bar bar-1"></span>
-        <span class="eq-bar bar-2"></span>
-        <span class="eq-bar bar-3"></span>
-        <span class="eq-bar bar-4"></span>
-      </div>
-    </button>
-  </div>
-
   <audio id="bgm-audio" loop preload="auto">
     <source src="audio/bgm.webm" type="audio/webm">
     <source src="audio/bgm.m4a" type="audio/mp4">
@@ -422,47 +403,56 @@
            LAYER 3: Sheer Flowing Curtains (Drapery)
            ==================================================================== -->
       <g id="layer-curtains">
-        <!-- Leftmost deep dark curtain layer -->
-        <path d="M 50 0 C 75 180, 85 380, 75 620 C 65 820, 90 960, 110 1080 L 0 1080 L 0 0 Z"
-          fill="url(#curtain-base)" />
+        <!-- 3A. Base Darker Drapery (Deep wall layer) -->
+        <g id="curtain-base-group" class="curtain-anim-base">
+          <!-- Leftmost deep dark curtain layer -->
+          <path d="M 50 0 C 75 180, 85 380, 75 620 C 65 820, 90 960, 110 1080 L 0 1080 L 0 0 Z"
+            fill="url(#curtain-base)" />
 
-        <!-- Main flowing sheer drape over window (Layer 1) -->
-        <path
-          d="M 105 0 C 130 150, 150 320, 145 520 C 140 700, 170 880, 190 1080 L 105 1080 C 90 950, 70 750, 80 520 C 90 320, 75 150, 65 0 Z"
-          fill="url(#curtain-fold-mid)" />
+          <!-- Main flowing sheer drape over window (Layer 1) -->
+          <path
+            d="M 105 0 C 130 150, 150 320, 145 520 C 140 700, 170 880, 190 1080 L 105 1080 C 90 950, 70 750, 80 520 C 90 320, 75 150, 65 0 Z"
+            fill="url(#curtain-fold-mid)" />
+        </g>
 
-        <!-- Translucent Billow Fold across window glass (Layer 2) -->
-        <path
-          d="M 145 0 C 190 180, 230 380, 235 600 C 240 780, 220 940, 215 1080 L 155 1080 C 165 920, 180 760, 175 580 C 170 400, 145 200, 125 0 Z"
-          fill="url(#curtain-sheer-layer)" />
+        <!-- 3B. Mid-layer Sheer Billow Drapes -->
+        <g id="curtain-mid-group" class="curtain-anim-mid">
+          <!-- Translucent Billow Fold across window glass (Layer 2) -->
+          <path
+            d="M 145 0 C 190 180, 230 380, 235 600 C 240 780, 220 940, 215 1080 L 155 1080 C 165 920, 180 760, 175 580 C 170 400, 145 200, 125 0 Z"
+            fill="url(#curtain-sheer-layer)" />
 
-        <!-- Broad soft drape extending to the right edge of window (Layer 3) -->
-        <path
-          d="M 210 0 C 270 160, 315 340, 330 550 C 345 740, 315 920, 300 1080 L 240 1080 C 260 920, 285 750, 275 560 C 265 380, 230 180, 190 0 Z"
-          fill="url(#curtain-sheer-layer)" />
+          <!-- Broad soft drape extending to the right edge of window (Layer 3) -->
+          <path
+            d="M 210 0 C 270 160, 315 340, 330 550 C 345 740, 315 920, 300 1080 L 240 1080 C 260 920, 285 750, 275 560 C 265 380, 230 180, 190 0 Z"
+            fill="url(#curtain-sheer-layer)" />
+        </g>
 
-        <!-- Outer sheer edge fluttering softly into room (Layer 4) -->
-        <path
-          d="M 275 0 C 335 180, 390 360, 405 570 C 415 720, 380 890, 360 1080 L 310 1080 C 335 910, 365 740, 355 580 C 345 400, 305 200, 260 0 Z"
-          fill="url(#curtain-sheer-layer)" opacity="0.8" />
+        <!-- 3C. Outer Billowing Edge & Crease Lines -->
+        <g id="curtain-edge-group" class="curtain-anim-edge">
+          <!-- Outer sheer edge fluttering softly into room (Layer 4) -->
+          <path
+            d="M 275 0 C 335 180, 390 360, 405 570 C 415 720, 380 890, 360 1080 L 310 1080 C 335 910, 365 740, 355 580 C 345 400, 305 200, 260 0 Z"
+            fill="url(#curtain-sheer-layer)" opacity="0.8" />
 
-        <!-- Trailing soft sheer mist edge -->
-        <path
-          d="M 345 0 C 405 200, 470 420, 480 640 C 490 780, 445 940, 415 1080 L 375 1080 C 405 930, 440 780, 430 630 C 420 450, 370 220, 325 0 Z"
-          fill="url(#curtain-sheer-layer)" opacity="0.45" />
+          <!-- Trailing soft sheer mist edge -->
+          <path
+            d="M 345 0 C 405 200, 470 420, 480 640 C 490 780, 445 940, 415 1080 L 375 1080 C 405 930, 440 780, 430 630 C 420 450, 370 220, 325 0 Z"
+            fill="url(#curtain-sheer-layer)" opacity="0.45" />
 
-        <!-- Fine vertical fold crease lines for cloth depth -->
-        <path d="M 90 0 C 105 220, 115 460, 110 720 C 105 900, 125 1010, 135 1080" stroke="#3d587c" stroke-width="2.5"
-          fill="none" opacity="0.5" />
-        <path d="M 160 0 C 200 240, 225 480, 225 720 C 225 890, 210 990, 205 1080" stroke="#5e87b5" stroke-width="2"
-          fill="none" opacity="0.45" />
-        <path d="M 240 0 C 290 200, 325 420, 330 650 C 335 830, 310 970, 295 1080" stroke="#7ca8db" stroke-width="2"
-          fill="none" opacity="0.35" />
-        <path d="M 315 0 C 370 200, 410 440, 415 660 C 420 820, 390 960, 375 1080" stroke="#9ec4ed" stroke-width="1.5"
-          fill="none" opacity="0.25" />
+          <!-- Fine vertical fold crease lines for cloth depth -->
+          <path d="M 90 0 C 105 220, 115 460, 110 720 C 105 900, 125 1010, 135 1080" stroke="#3d587c" stroke-width="2.5"
+            fill="none" opacity="0.5" />
+          <path d="M 160 0 C 200 240, 225 480, 225 720 C 225 890, 210 990, 205 1080" stroke="#5e87b5" stroke-width="2"
+            fill="none" opacity="0.45" />
+          <path d="M 240 0 C 290 200, 325 420, 330 650 C 335 830, 310 970, 295 1080" stroke="#7ca8db" stroke-width="2"
+            fill="none" opacity="0.35" />
+          <path d="M 315 0 C 370 200, 410 440, 415 660 C 420 820, 390 960, 375 1080" stroke="#9ec4ed" stroke-width="1.5"
+            fill="none" opacity="0.25" />
+        </g>
 
         <!-- Strong Diagonal Moonlit Ray crossing the curtains -->
-        <polygon points="120,0 260,0 520,700 280,700" fill="url(#moonlight-sheer-ray)" />
+        <polygon id="curtain-moonbeam" class="curtain-moonbeam-pulse" points="120,0 260,0 520,700 280,700" fill="url(#moonlight-sheer-ray)" />
       </g>
 
       <!-- ====================================================================
