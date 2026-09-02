@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Caveat:wght@400;500;600;700&family=Itim&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Mali:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Playwrite+VN:wght@100..400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Floating Background Music Controller Widget -->
+  <div class="bgm-widget" id="bgm-widget" title="Nhạc nền: A Story About Us - BigRicePiano">
+    <button class="bgm-btn" id="bgm-toggle-btn" aria-label="Bật/Tắt nhạc nền">
+      <div class="bgm-vinyl">
+        <span class="bgm-icon">🎵</span>
+      </div>
+      <div class="bgm-info">
+        <span class="bgm-title">A Story About Us</span>
+        <span class="bgm-artist">BigRicePiano</span>
+      </div>
+      <div class="bgm-equalizer">
+        <span class="eq-bar bar-1"></span>
+        <span class="eq-bar bar-2"></span>
+        <span class="eq-bar bar-3"></span>
+        <span class="eq-bar bar-4"></span>
+      </div>
+    </button>
+  </div>
+
+  <audio id="bgm-audio" loop preload="auto">
+    <source src="audio/bgm.webm" type="audio/webm">
+    <source src="audio/bgm.m4a" type="audio/mp4">
+    <source src="audio/bgm.mp3" type="audio/mpeg">
+  </audio>
+
+  <main class="artwork-viewport">
+    <svg class="svg-canvas is-lit" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <!-- Background radial ambient gradient -->
+        <radialGradient id="bg-ambient" cx="50%" cy="50%" r="75%" fx="45%" fy="45%">
+          <stop offset="0%" stop-color="#19232f" />
+          <stop offset="35%" stop-color="#121a24" />
+          <stop offset="70%" stop-color="#0b1016" />
+          <stop offset="100%" stop-color="#06090d" />
+        </radialGradient>
+
+        <!-- Wall soft center moonlight / room glow -->
+        <radialGradient id="wall-ambient-glow" cx="52%" cy="52%" r="45%">
+          <stop offset="0%" stop-color="#1d2b3b" stop-opacity="0.65" />
+          <stop offset="50%" stop-color="#131c26" stop-opacity="0.25" />
+          <stop offset="100%" stop-color="#0b1016" stop-opacity="0" />
+        </radialGradient>
+
+        <!-- Window exterior moonlit night sky -->
+        <linearGradient id="sky-gradient" x1="0%" y1="0%" x2="70%" y2="100%">
+          <stop offset="0%" stop-color="#15243b" />
+          <stop offset="30%" stop-color="#1d3353" />
+          <stop offset="70%" stop-color="#2a4a75" />
+          <stop offset="100%" stop-color="#386094" />
+        </linearGradient>
+
+        <!-- Moonlight diagonal volumetric rays -->
+        <linearGradient id="moonlight-diagonal-ray" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#76a8d8" stop-opacity="0.32" />
+          <stop offset="35%" stop-color="#507fae" stop-opacity="0.18" />
+          <stop offset="70%" stop-color="#2d4f74" stop-opacity="0.06" />
+          <stop offset="100%" stop-color="#182d44" stop-opacity="0" />
+        </linearGradient>
+
+        <linearGradient id="moonlight-sheer-ray" x1="0%" y1="0%" x2="100%" y2="80%">
+          <stop offset="0%" stop-color="#8bb7e2" stop-opacity="0.28" />
+          <stop offset="40%" stop-color="#5584b2" stop-opacity="0.14" />
+          <stop offset="100%" stop-color="#203854" stop-opacity="0" />
+        </linearGradient>
+
+        <!-- Sheer Curtains Gradients -->
+        <linearGradient id="curtain-base" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#1c2d42" stop-opacity="0.88" />
+          <stop offset="30%" stop-color="#2b4363" stop-opacity="0.75" />
+          <stop offset="70%" stop-color="#1a2b40" stop-opacity="0.88" />
+          <stop offset="100%" stop-color="#111d2c" stop-opacity="0.95" />
+        </linearGradient>
+
+        <linearGradient id="curtain-fold-mid" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#365377" stop-opacity="0.6" />
+          <stop offset="30%" stop-color="#537ca9" stop-opacity="0.45" />
+          <stop offset="65%" stop-color="#2c4566" stop-opacity="0.65" />
+          <stop offset="100%" stop-color="#1d3047" stop-opacity="0.8" />
+        </linearGradient>
+
+        <linearGradient id="curtain-sheer-layer" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#658eb5" stop-opacity="0.35" />
+          <stop offset="45%" stop-color="#94c0eb" stop-opacity="0.22" />
+          <stop offset="75%" stop-color="#527fa8" stop-opacity="0.32" />
+          <stop offset="100%" stop-color="#284462" stop-opacity="0.45" />
+        </linearGradient>
+
+        <!-- Table Wood Planks Gradients -->
+        <linearGradient id="table-plank-1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#1d2735" />
+          <stop offset="40%" stop-color="#16202b" />
+          <stop offset="100%" stop-color="#0f151e" />
+        </linearGradient>
+
+        <linearGradient id="table-plank-2" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#243242" />
+          <stop offset="35%" stop-color="#1b2633" />
+          <stop offset="100%" stop-color="#111821" />
+        </linearGradient>
+
+        <linearGradient id="table-plank-3" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#29394b" />
+          <stop offset="35%" stop-color="#1f2b38" />
+          <stop offset="100%" stop-color="#131a23" />
+        </linearGradient>
+
+        <linearGradient id="table-plank-4" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#2e3f52" />
+          <stop offset="35%" stop-color="#22303e" />
+          <stop offset="100%" stop-color="#141c25" />
+        </linearGradient>
+
+        <linearGradient id="table-plank-5" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#34465b" />
+          <stop offset="35%" stop-color="#263443" />
+          <stop offset="100%" stop-color="#161f29" />
+        </linearGradient>
+
+        <!-- Candle Wax Gradients -->
+        <linearGradient id="candle-wax-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#c5c9ce" />
+          <stop offset="30%" stop-color="#e2e5e8" />
+          <stop offset="70%" stop-color="#b8bcc2" />
+          <stop offset="100%" stop-color="#8a9096" />
+        </linearGradient>
+
+        <!-- Brass Candlestick Gradients -->
+        <linearGradient id="brass-saucer-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#555d44" />
+          <stop offset="35%" stop-color="#717c5b" />
+          <stop offset="70%" stop-color="#464e39" />
+          <stop offset="100%" stop-color="#262b1e" />
+        </linearGradient>
+
+        <linearGradient id="brass-stem-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#4d563d" />
+          <stop offset="40%" stop-color="#778261" />
+          <stop offset="80%" stop-color="#3d442f" />
+          <stop offset="100%" stop-color="#202518" />
+        </linearGradient>
+
+        <!-- Memory Box Gradients -->
+        <linearGradient id="box-lid-top-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#697788" />
+          <stop offset="45%" stop-color="#586574" />
+          <stop offset="100%" stop-color="#46515e" />
+        </linearGradient>
+
+        <linearGradient id="box-lid-rim-front" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#4f5966" />
+          <stop offset="50%" stop-color="#424c58" />
+          <stop offset="100%" stop-color="#343c46" />
+        </linearGradient>
+
+        <linearGradient id="box-lid-rim-side" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#2d353e" />
+          <stop offset="100%" stop-color="#1f252c" />
+        </linearGradient>
+
+        <linearGradient id="box-body-front-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#46505c" />
+          <stop offset="55%" stop-color="#3b4450" />
+          <stop offset="100%" stop-color="#2e3640" />
+        </linearGradient>
+
+        <linearGradient id="box-body-side-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#2a313a" />
+          <stop offset="100%" stop-color="#1c2228" />
+        </linearGradient>
+
+        <linearGradient id="box-cavity-inner-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#100b18" />
+          <stop offset="50%" stop-color="#191226" />
+          <stop offset="100%" stop-color="#0a0710" />
+        </linearGradient>
+
+        <radialGradient id="box-lid-landed-shadow-grad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#070a0e" stop-opacity="0.95" />
+          <stop offset="50%" stop-color="#090d13" stop-opacity="0.6" />
+          <stop offset="100%" stop-color="#0b1016" stop-opacity="0" />
+        </radialGradient>
+
+        <!-- Kerosene lamp glass chimney gradient -->
+        <linearGradient id="glass-chimney-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#2e4258" stop-opacity="0.4" />
+          <stop offset="35%" stop-color="#6084ab" stop-opacity="0.3" />
+          <stop offset="70%" stop-color="#283c50" stop-opacity="0.5" />
+          <stop offset="100%" stop-color="#162332" stop-opacity="0.75" />
+        </linearGradient>
+
+        <!-- Warm Candlelight Illumination Gradients -->
+        <radialGradient id="candle-wall-lit-glow" cx="815" cy="430" r="620" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#ffa034" stop-opacity="0.75" />
+          <stop offset="30%" stop-color="#e26612" stop-opacity="0.45" />
+          <stop offset="65%" stop-color="#7a2806" stop-opacity="0.15" />
+          <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+        </radialGradient>
+
+        <radialGradient id="table-lit-wood-glow" cx="770" cy="735" rx="480" ry="130" fx="800" fy="725"
+          gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#ffb048" stop-opacity="0.9" />
+          <stop offset="35%" stop-color="#d46815" stop-opacity="0.65" />
+          <stop offset="70%" stop-color="#782d08" stop-opacity="0.25" />
+          <stop offset="100%" stop-color="#141c26" stop-opacity="0" />
+        </radialGradient>
+
+        <linearGradient id="box-lit-face-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#ffb862" stop-opacity="0.45" />
+          <stop offset="55%" stop-color="#cf6815" stop-opacity="0.18" />
+          <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+        </linearGradient>
+
+        <linearGradient id="box-lid-top-lit-glow" x1="0%" y1="60%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#ffb862" stop-opacity="0.48" />
+          <stop offset="40%" stop-color="#d46815" stop-opacity="0.22" />
+          <stop offset="80%" stop-color="#782d08" stop-opacity="0.06" />
+          <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+        </linearGradient>
+
+        <linearGradient id="box-lid-rim-lit-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#ffb862" stop-opacity="0.45" />
+          <stop offset="55%" stop-color="#cf6815" stop-opacity="0.18" />
+          <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+        </linearGradient>
+
+        <!-- Flame Gradients -->
+        <radialGradient id="flame-glow-halo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9" />
+          <stop offset="25%" stop-color="#ffe885" stop-opacity="0.75" />
+          <stop offset="60%" stop-color="#ff8e1a" stop-opacity="0.4" />
+          <stop offset="100%" stop-color="#d44a00" stop-opacity="0" />
+        </radialGradient>
+
+        <linearGradient id="flame-outer-grad" x1="50%" y1="100%" x2="50%" y2="0%">
+          <stop offset="0%" stop-color="#e04800" />
+          <stop offset="25%" stop-color="#ff7b00" />
+          <stop offset="65%" stop-color="#ffc83b" />
+          <stop offset="100%" stop-color="#fff9d6" />
+        </linearGradient>
+
+        <linearGradient id="flame-inner-grad" x1="50%" y1="100%" x2="50%" y2="0%">
+          <stop offset="0%" stop-color="#ffe67a" />
+          <stop offset="40%" stop-color="#fff8d1" />
+          <stop offset="100%" stop-color="#ffffff" />
+        </linearGradient>
+
+        <!-- Cosmic Open Box & Burst Gradients -->
+        <radialGradient id="box-interior-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="1" />
+          <stop offset="25%" stop-color="#84f6ff" stop-opacity="0.95" />
+          <stop offset="55%" stop-color="#ff7ce5" stop-opacity="0.7" />
+          <stop offset="85%" stop-color="#8a4dff" stop-opacity="0.35" />
+          <stop offset="100%" stop-color="#14101a" stop-opacity="0" />
+        </radialGradient>
+
+        <linearGradient id="box-volumetric-beam-grad" x1="50%" y1="100%" x2="50%" y2="0%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85" />
+          <stop offset="20%" stop-color="#7df1ff" stop-opacity="0.55" />
+          <stop offset="55%" stop-color="#ff7ad9" stop-opacity="0.3" />
+          <stop offset="85%" stop-color="#9455ff" stop-opacity="0.12" />
+          <stop offset="100%" stop-color="#1b2a4a" stop-opacity="0" />
+        </linearGradient>
+
+        <radialGradient id="box-room-cosmic-glow-grad" cx="55%" cy="55%" r="55%">
+          <stop offset="0%" stop-color="#7bf5ff" stop-opacity="0.45" />
+          <stop offset="35%" stop-color="#e96eff" stop-opacity="0.25" />
+          <stop offset="70%" stop-color="#512b9e" stop-opacity="0.1" />
+          <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+        </radialGradient>
+
+        <radialGradient id="box-table-cosmic-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#b6f7ff" stop-opacity="0.8" />
+          <stop offset="40%" stop-color="#f87eff" stop-opacity="0.45" />
+          <stop offset="80%" stop-color="#4e2c94" stop-opacity="0.15" />
+          <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+        </radialGradient>
+
+        <!-- Open Cardboard Flaps Gradients -->
+        <linearGradient id="box-flap-left-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#7a624f" />
+          <stop offset="60%" stop-color="#5f4a3a" />
+          <stop offset="100%" stop-color="#463629" />
+        </linearGradient>
+
+        <linearGradient id="box-flap-right-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#8d7360" />
+          <stop offset="60%" stop-color="#6e5746" />
+          <stop offset="100%" stop-color="#4a392d" />
+        </linearGradient>
+
+        <linearGradient id="box-flap-back-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#695343" />
+          <stop offset="100%" stop-color="#3c2f25" />
+        </linearGradient>
+
+        <!-- Table Top Polygon Clip Path to keep candlelight naturally on wood -->
+        <clipPath id="table-top-clip">
+          <polygon points="585,650 1415,650 1375,828 340,788" />
+        </clipPath>
+
+        <!-- Subtle blur filters for authentic shadows & soft glow -->
+        <filter id="soft-glow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="8" />
+        </filter>
+        <filter id="flame-soft-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="16" />
+        </filter>
+        <filter id="shadow-blur" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="4" />
+        </filter>
+
+        <!-- Floating Card Magic Aura Gradient & Filter -->
+        <radialGradient id="card-aura-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9" />
+          <stop offset="30%" stop-color="#7df1ff" stop-opacity="0.75" />
+          <stop offset="65%" stop-color="#ff7ce5" stop-opacity="0.4" />
+          <stop offset="100%" stop-color="#9455ff" stop-opacity="0" />
+        </radialGradient>
+        <filter id="card-magic-glow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="6" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
+      <!-- ====================================================================
+           LAYER 1: Room Backdrop & Wall Lighting
+           ==================================================================== -->
+      <g id="layer-room-background">
+        <!-- Base Wall Background -->
+        <rect width="1920" height="1080" fill="url(#bg-ambient)" />
+
+        <!-- Soft Ambient Light Glow on Center Wall -->
+        <circle cx="1060" cy="540" r="620" fill="url(#wall-ambient-glow)" />
+
+        <!-- Warm Candle Wall Glow (Active when candle is lit) -->
+        <circle id="flame-wall-glow" class="candle-lit-layer" cx="815" cy="430" r="620"
+          fill="url(#candle-wall-lit-glow)" />
+
+        <!-- Ethereal Cosmic Room Glow (Active when memory box is open) -->
+        <circle id="box-room-cosmic-glow" class="box-open-layer" cx="1105" cy="540" r="750"
+          fill="url(#box-room-cosmic-glow-grad)" />
+
+        <!-- Left corner wall shadow -->
+        <polygon points="0,0 120,0 120,1080 0,1080" fill="#06090d" opacity="0.6" />
+      </g>
+
+      <!-- ====================================================================
+           LAYER 2: Moonlit Window & Exterior Night
+           ==================================================================== -->
+      <g id="layer-window">
+        <!-- Window Outer Wall Casing -->
+        <polygon points="110,0 390,0 390,740 110,740" fill="#080c12" />
+
+        <!-- Window Jamb / Depth Reveals -->
+        <polygon points="110,0 145,0 145,670 110,670" fill="#0e151f" />
+        <polygon points="110,0 390,0 355,0 145,0" fill="#0b1017" />
+        <polygon points="355,0 390,0 390,670 355,670" fill="#070a0f" />
+
+        <!-- Window Glass / Sky Cutout -->
+        <rect x="145" y="0" width="210" height="670" fill="url(#sky-gradient)" />
+
+        <!-- Distant Night Haze / Silhouetted Outdoors -->
+        <path d="M 145 220 Q 250 200 355 240 L 355 670 L 145 670 Z" fill="#13233b" opacity="0.6" />
+        <path d="M 145 380 Q 240 350 355 400 L 355 670 L 145 670 Z" fill="#0f1d32" opacity="0.75" />
+
+        <!-- Center Vertical Window Frame Muntin -->
+        <rect x="242" y="0" width="16" height="670" fill="#0a1017" />
+        <line x1="242" y1="0" x2="242" y2="670" stroke="#16202d" stroke-width="1.5" />
+        <line x1="258" y1="0" x2="258" y2="670" stroke="#05080c" stroke-width="1.5" />
+
+        <!-- Horizontal Window Frame Muntins -->
+        <!-- Row 1 -->
+        <rect x="145" y="85" width="210" height="14" fill="#0a1017" />
+        <line x1="145" y1="85" x2="355" y2="85" stroke="#192433" stroke-width="1.5" />
+        <line x1="145" y1="99" x2="355" y2="99" stroke="#05080c" stroke-width="1.5" />
+
+        <!-- Row 2 -->
+        <rect x="145" y="335" width="210" height="15" fill="#0a1017" />
+        <line x1="145" y1="335" x2="355" y2="335" stroke="#1c2838" stroke-width="1.5" />
+        <line x1="145" y1="350" x2="355" y2="350" stroke="#05080c" stroke-width="1.5" />
+
+        <!-- Row 3 -->
+        <rect x="145" y="580" width="210" height="15" fill="#0a1017" />
+        <line x1="145" y1="580" x2="355" y2="580" stroke="#1e2a3b" stroke-width="1.5" />
+        <line x1="145" y1="595" x2="355" y2="595" stroke="#05080c" stroke-width="1.5" />
+
+        <!-- Window Sill (Sturdy wooden sill projecting into room) -->
+        <!-- Top moonlit face of sill -->
+        <polygon points="90,665 410,665 400,695 95,695" fill="#182536" />
+        <line x1="90" y1="665" x2="410" y2="665" stroke="#385274" stroke-width="2" />
+        <!-- Front apron face of sill -->
+        <polygon points="95,695 400,695 395,735 100,735" fill="#0f1620" />
+        <line x1="100" y1="735" x2="395" y2="735" stroke="#06090d" stroke-width="2" />
+        <!-- Sill under shadow -->
+        <polygon points="95,735 395,735 385,765 105,765" fill="#06090d" opacity="0.85" />
+
+        <!-- Soft Volumetric Moonbeam streaming across room -->
+        <polygon points="145,0 355,0 720,1080 200,1080" fill="url(#moonlight-diagonal-ray)" />
+      </g>
+
+      <!-- ====================================================================
+           LAYER 3: Sheer Flowing Curtains (Drapery)
+           ==================================================================== -->
+      <g id="layer-curtains">
+        <!-- Leftmost deep dark curtain layer -->
+        <path d="M 50 0 C 75 180, 85 380, 75 620 C 65 820, 90 960, 110 1080 L 0 1080 L 0 0 Z"
+          fill="url(#curtain-base)" />
+
+        <!-- Main flowing sheer drape over window (Layer 1) -->
+        <path
+          d="M 105 0 C 130 150, 150 320, 145 520 C 140 700, 170 880, 190 1080 L 105 1080 C 90 950, 70 750, 80 520 C 90 320, 75 150, 65 0 Z"
+          fill="url(#curtain-fold-mid)" />
+
+        <!-- Translucent Billow Fold across window glass (Layer 2) -->
+        <path
+          d="M 145 0 C 190 180, 230 380, 235 600 C 240 780, 220 940, 215 1080 L 155 1080 C 165 920, 180 760, 175 580 C 170 400, 145 200, 125 0 Z"
+          fill="url(#curtain-sheer-layer)" />
+
+        <!-- Broad soft drape extending to the right edge of window (Layer 3) -->
+        <path
+          d="M 210 0 C 270 160, 315 340, 330 550 C 345 740, 315 920, 300 1080 L 240 1080 C 260 920, 285 750, 275 560 C 265 380, 230 180, 190 0 Z"
+          fill="url(#curtain-sheer-layer)" />
+
+        <!-- Outer sheer edge fluttering softly into room (Layer 4) -->
+        <path
+          d="M 275 0 C 335 180, 390 360, 405 570 C 415 720, 380 890, 360 1080 L 310 1080 C 335 910, 365 740, 355 580 C 345 400, 305 200, 260 0 Z"
+          fill="url(#curtain-sheer-layer)" opacity="0.8" />
+
+        <!-- Trailing soft sheer mist edge -->
+        <path
+          d="M 345 0 C 405 200, 470 420, 480 640 C 490 780, 445 940, 415 1080 L 375 1080 C 405 930, 440 780, 430 630 C 420 450, 370 220, 325 0 Z"
+          fill="url(#curtain-sheer-layer)" opacity="0.45" />
+
+        <!-- Fine vertical fold crease lines for cloth depth -->
+        <path d="M 90 0 C 105 220, 115 460, 110 720 C 105 900, 125 1010, 135 1080" stroke="#3d587c" stroke-width="2.5"
+          fill="none" opacity="0.5" />
+        <path d="M 160 0 C 200 240, 225 480, 225 720 C 225 890, 210 990, 205 1080" stroke="#5e87b5" stroke-width="2"
+          fill="none" opacity="0.45" />
+        <path d="M 240 0 C 290 200, 325 420, 330 650 C 335 830, 310 970, 295 1080" stroke="#7ca8db" stroke-width="2"
+          fill="none" opacity="0.35" />
+        <path d="M 315 0 C 370 200, 410 440, 415 660 C 420 820, 390 960, 375 1080" stroke="#9ec4ed" stroke-width="1.5"
+          fill="none" opacity="0.25" />
+
+        <!-- Strong Diagonal Moonlit Ray crossing the curtains -->
+        <polygon points="120,0 260,0 520,700 280,700" fill="url(#moonlight-sheer-ray)" />
+      </g>
+
+      <!-- ====================================================================
+           LAYER 4: Wall Shelves & Ambient Props
+           ==================================================================== -->
+      <g id="layer-wall-shelves">
+        <!-- ------------------------------------------------------------------
+             4A. Top-Left Corner Wall Shelf & Corbel Bracket
+             ------------------------------------------------------------------ -->
+        <g id="shelf-top-left">
+          <!-- Shelf top board -->
+          <polygon points="610,0 790,0 790,36 610,36" fill="#141c26" />
+          <line x1="610" y1="36" x2="790" y2="36" stroke="#080c11" stroke-width="2" />
+          <!-- Wooden Corbel / Curved Bracket -->
+          <path d="M 615 36 L 755 36 C 750 110, 690 170, 690 260 L 615 260 Z" fill="#0e141c" />
+          <!-- Inner bevel contour -->
+          <path d="M 625 46 L 735 46 C 730 110, 675 160, 675 245 L 625 245 Z" fill="#090e13" />
+          <!-- Bracket highlight on curve -->
+          <path d="M 755 36 C 750 110, 690 170, 690 260" stroke="#1d2836" stroke-width="3" fill="none" />
+        </g>
+
+        <!-- ------------------------------------------------------------------
+             4B. Center Floating Wall Shelf & Props
+             ------------------------------------------------------------------ -->
+        <g id="shelf-center">
+          <!-- Left Corbel Bracket -->
+          <path d="M 1035 240 L 1070 240 C 1065 285, 1038 315, 1038 340 L 1035 340 Z" fill="#0b1016" />
+          <path d="M 1070 240 C 1065 285, 1038 315, 1038 340" stroke="#17222e" stroke-width="2" fill="none" />
+
+          <!-- Right Corbel Bracket -->
+          <path d="M 1405 240 L 1440 240 C 1435 285, 1408 315, 1408 340 L 1405 340 Z" fill="#0b1016" />
+          <path d="M 1440 240 C 1435 285, 1408 315, 1408 340" stroke="#17222e" stroke-width="2" fill="none" />
+
+          <!-- Shelf Board (Top Bevel + Front Edge) -->
+          <polygon points="985,214 1465,214 1465,226 985,226" fill="#182432" />
+          <line x1="985" y1="214" x2="1465" y2="214" stroke="#27384c" stroke-width="1.5" />
+          <polygon points="985,226 1465,226 1465,242 985,242" fill="#0f1620" />
+          <line x1="985" y1="242" x2="1465" y2="242" stroke="#06090d" stroke-width="2" />
+          <!-- Shelf drop shadow on wall -->
+          <rect x="990" y="242" width="470" height="20" fill="#06090d" opacity="0.75" />
+
+          <!-- Center Shelf Props: -->
+          <!-- Prop 1: Two dark books on left -->
+          <rect x="1025" y="115" width="22" height="99" fill="#172330" />
+          <line x1="1025" y1="115" x2="1047" y2="115" stroke="#223344" stroke-width="1.5" />
+          <rect x="1050" y="128" width="18" height="86" fill="#1c2b3a" />
+          <line x1="1050" y1="128" x2="1068" y2="128" stroke="#283d52" stroke-width="1.5" />
+
+          <!-- Prop 2: Ceramic Jug / Pitcher -->
+          <path
+            d="M 1105 160 C 1085 175, 1085 198, 1098 214 L 1142 214 C 1155 198, 1155 175, 1135 160 L 1130 135 L 1110 135 Z"
+            fill="#202d3d" />
+          <ellipse cx="1120" cy="135" rx="10" ry="3.5" fill="#2c3c4f" />
+          <!-- Jug loop handle -->
+          <path d="M 1092 148 C 1076 160, 1076 190, 1095 202" stroke="#182330" stroke-width="5" fill="none"
+            stroke-linecap="round" />
+          <path d="M 1092 148 C 1076 160, 1076 190, 1095 202" stroke="#293b4f" stroke-width="2" fill="none"
+            stroke-linecap="round" />
+
+          <!-- Prop 3: Vintage Kerosene / Oil Lamp (Chimney & Brass Burner Base) -->
+          <path d="M 1182 188 L 1218 188 L 1224 214 L 1176 214 Z" fill="#36402e" />
+          <ellipse cx="1200" cy="188" rx="18" ry="5" fill="#4e5b42" />
+          <ellipse cx="1200" cy="178" rx="14" ry="4" fill="#36402e" />
+          <!-- Glass chimney -->
+          <path
+            d="M 1186 178 C 1172 162, 1172 140, 1186 122 C 1192 110, 1195 90, 1195 68 L 1205 68 C 1205 90, 1208 110, 1214 122 C 1228 140, 1228 162, 1214 178 Z"
+            fill="url(#glass-chimney-grad)" />
+          <ellipse cx="1200" cy="68" rx="5" ry="2" fill="#4d6f94" />
+          <path d="M 1188 125 C 1194 110, 1196 90, 1196 70" stroke="#7599c2" stroke-width="1.5" fill="none"
+            opacity="0.6" />
+
+          <!-- Prop 4: Small Covered Jar / Sugar Pot -->
+          <path d="M 1240 170 C 1232 178, 1232 202, 1242 214 L 1268 214 C 1278 202, 1278 178, 1270 170 Z"
+            fill="#1b2735" />
+          <ellipse cx="1255" cy="170" rx="14" ry="4" fill="#253548" />
+          <circle cx="1255" cy="162" r="3.5" fill="#2e4056" />
+
+          <!-- Prop 5: Framed Picture / Portrait Frame -->
+          <polygon points="1295,102 1395,95 1403,214 1303,214" fill="#2d3846" />
+          <polygon points="1305,112 1385,106 1391,204 1311,204" fill="#111822" />
+          <polygon points="1315,112 1345,109 1335,204 1305,204" fill="#2a3e56" opacity="0.3" />
+
+          <!-- Prop 6: Leaning Hardcover Books on Right of Shelf -->
+          <polygon points="1405,75 1425,71 1468,214 1448,214" fill="#2d3d4e" />
+          <line x1="1405" y1="75" x2="1448" y2="214" stroke="#3b4f66" stroke-width="1.5" />
+          <polygon points="1427,82 1445,78 1478,214 1460,214" fill="#3b3240" />
+          <line x1="1427" y1="82" x2="1460" y2="214" stroke="#4d4254" stroke-width="1.5" />
+          <polygon points="1447,95 1462,92 1488,214 1473,214" fill="#1f2c3a" />
+          <line x1="1447" y1="95" x2="1473" y2="214" stroke="#2b3d4f" stroke-width="1.5" />
+        </g>
+      </g>
+
+      <!-- ====================================================================
+           LAYER 5: Grand Bookshelf (Right Wall)
+           ==================================================================== -->
+      <g id="layer-bookshelf">
+        <!-- Main Bookshelf Cabinet Structure -->
+        <rect x="1510" y="0" width="410" height="1080" fill="#070a0e" />
+
+        <!-- Vertical Upright Left Panel -->
+        <polygon points="1510,0 1570,0 1570,1080 1510,1080" fill="#090d13" />
+        <line x1="1570" y1="0" x2="1570" y2="1080" stroke="#040608" stroke-width="3" />
+        <line x1="1510" y1="0" x2="1510" y2="1080" stroke="#16202c" stroke-width="1.5" />
+
+        <!-- ------------------------------------------------------------------
+             Shelf Tier 1 (Top: y = 0 to 170)
+             ------------------------------------------------------------------ -->
+        <g id="shelf-tier-1">
+          <!-- Shelf Board -->
+          <polygon points="1570,148 1920,148 1920,168 1570,168" fill="#101720" />
+          <line x1="1570" y1="148" x2="1920" y2="148" stroke="#1c2634" stroke-width="1.5" />
+
+          <!-- Left standing books -->
+          <rect x="1605" y="25" width="32" height="123" fill="#182738" />
+          <rect x="1640" y="45" width="28" height="103" fill="#243447" />
+
+          <!-- Small bottle / jar -->
+          <path d="M 1720 75 L 1740 75 L 1745 148 L 1715 148 Z" fill="#1b2a3a" />
+          <ellipse cx="1730" cy="75" rx="7" ry="2.5" fill="#2c4056" />
+
+          <!-- Stack of 3 horizontal books on the right -->
+          <polygon points="1780,124 1920,124 1920,148 1780,148" fill="#283849" />
+          <line x1="1780" y1="124" x2="1920" y2="124" stroke="#384c63" stroke-width="1.5" />
+          <polygon points="1792,98 1920,98 1920,122 1792,122" fill="#1c2937" />
+          <line x1="1792" y1="98" x2="1920" y2="98" stroke="#2a3c4f" stroke-width="1.5" />
+          <polygon points="1805,74 1920,74 1920,96 1805,96" fill="#2e3e50" />
+          <line x1="1805" y1="74" x2="1920" y2="74" stroke="#41566f" stroke-width="1.5" />
+        </g>
+
+        <!-- ------------------------------------------------------------------
+             Shelf Tier 2 (Upper-Middle: y = 170 to 435)
+             ------------------------------------------------------------------ -->
+        <g id="shelf-tier-2">
+          <!-- Shelf Board -->
+          <polygon points="1570,418 1920,418 1920,438 1570,438" fill="#101720" />
+          <line x1="1570" y1="418" x2="1920" y2="418" stroke="#1c2634" stroke-width="1.5" />
+
+          <!-- Solid Row of Hardcover Books: -->
+          <!-- Book 1: Dark Teal -->
+          <rect x="1598" y="235" width="38" height="183" fill="#153338" />
+          <line x1="1598" y1="235" x2="1636" y2="235" stroke="#22484e" stroke-width="1.5" />
+          <line x1="1602" y1="245" x2="1602" y2="410" stroke="#1a3f45" stroke-width="1" />
+
+          <!-- Book 2: Deep Pine Green -->
+          <rect x="1638" y="215" width="44" height="203" fill="#1a3d34" />
+          <line x1="1638" y1="215" x2="1682" y2="215" stroke="#265247" stroke-width="1.5" />
+
+          <!-- Book 3: Dark Slate Indigo -->
+          <rect x="1684" y="248" width="32" height="170" fill="#172738" />
+          <line x1="1684" y1="248" x2="1716" y2="248" stroke="#23384f" stroke-width="1.5" />
+
+          <!-- Book 4: Moss Olive -->
+          <rect x="1718" y="222" width="42" height="196" fill="#243828" />
+          <line x1="1718" y1="222" x2="1760" y2="222" stroke="#334d38" stroke-width="1.5" />
+
+          <!-- Book 5: Navy Blue -->
+          <rect x="1762" y="254" width="36" height="164" fill="#1a2736" />
+          <line x1="1762" y1="254" x2="1798" y2="254" stroke="#273a50" stroke-width="1.5" />
+
+          <!-- Book 6: Deep Burgundy -->
+          <rect x="1800" y="232" width="42" height="186" fill="#3a2327" />
+          <line x1="1800" y1="232" x2="1842" y2="232" stroke="#523237" stroke-width="1.5" />
+
+          <!-- Book 7: Dark Cerulean -->
+          <rect x="1844" y="212" width="46" height="206" fill="#182b3d" />
+          <line x1="1844" y1="212" x2="1890" y2="212" stroke="#264059" stroke-width="1.5" />
+
+          <!-- Book 8: Dark Khaki -->
+          <rect x="1892" y="238" width="28" height="180" fill="#2b3524" />
+          <line x1="1892" y1="238" x2="1920" y2="238" stroke="#3e4a34" stroke-width="1.5" />
+        </g>
+
+        <!-- ------------------------------------------------------------------
+             Shelf Tier 3 (Lower-Middle: y = 438 to 685)
+             ------------------------------------------------------------------ -->
+        <g id="shelf-tier-3">
+          <!-- Shelf Board -->
+          <polygon points="1570,668 1920,668 1920,688 1570,688" fill="#101720" />
+          <line x1="1570" y1="668" x2="1920" y2="668" stroke="#1c2634" stroke-width="1.5" />
+
+          <!-- Row of standing books -->
+          <rect x="1605" y="480" width="38" height="188" fill="#163038" />
+          <rect x="1645" y="465" width="44" height="203" fill="#1a3b3a" />
+          <rect x="1691" y="495" width="32" height="173" fill="#1d2836" />
+          <rect x="1725" y="475" width="42" height="193" fill="#283a2c" />
+          <rect x="1770" y="505" width="36" height="163" fill="#35262c" />
+          <rect x="1808" y="478" width="45" height="190" fill="#1b2a3a" />
+          <rect x="1855" y="460" width="40" height="208" fill="#253545" />
+          <rect x="1897" y="485" width="23" height="183" fill="#1e2d26" />
+        </g>
+
+        <!-- ------------------------------------------------------------------
+             Shelf Tier 4 (Bottom: y = 688 to 1080)
+             ------------------------------------------------------------------ -->
+        <g id="shelf-tier-4">
+          <!-- Standing books on left -->
+          <rect x="1605" y="750" width="38" height="330" fill="#172738" />
+          <rect x="1645" y="735" width="42" height="345" fill="#1d3442" />
+          <rect x="1690" y="760" width="36" height="320" fill="#152430" />
+
+          <!-- Group of leaning books on right -->
+          <!-- Leaning Book 1 -->
+          <polygon points="1750,730 1785,720 1825,1080 1790,1080" fill="#233547" />
+          <!-- Leaning Book 2 -->
+          <polygon points="1788,740 1820,730 1855,1080 1823,1080" fill="#332429" />
+          <!-- Leaning Book 3 -->
+          <polygon points="1825,755 1855,745 1888,1080 1858,1080" fill="#192837" />
+          <!-- Leaning Book 4 -->
+          <polygon points="1860,770 1890,760 1920,1080 1890,1080" fill="#283526" />
+        </g>
+      </g>
+
+      <!-- ====================================================================
+           LAYER 6: Rustic Wooden Table (Foreground)
+           ==================================================================== -->
+      <g id="layer-table">
+        <!-- Table Legs & Understructure (In deep shadow) -->
+        <!-- Back Left Leg -->
+        <polygon points="530,830 585,830 580,1020 525,1020" fill="#070a0e" />
+        <!-- Front Left Sturdy Leg -->
+        <polygon points="450,830 535,830 525,1080 440,1080" fill="#0a0f15" />
+        <line x1="450" y1="830" x2="440" y2="1080" stroke="#16212d" stroke-width="2" />
+        <line x1="535" y1="830" x2="525" y2="1080" stroke="#04070a" stroke-width="2" />
+
+        <!-- Front Right Sturdy Leg -->
+        <polygon points="1225,830 1310,830 1300,1080 1215,1080" fill="#0a0f15" />
+        <line x1="1225" y1="830" x2="1215" y2="1080" stroke="#16212d" stroke-width="2" />
+        <line x1="1310" y1="830" x2="1300" y2="1080" stroke="#04070a" stroke-width="2" />
+
+        <!-- Apron Crossbeam -->
+        <polygon points="380,830 1375,830 1365,880 390,880" fill="#0c131a" />
+        <line x1="390" y1="880" x2="1365" y2="880" stroke="#05080b" stroke-width="2.5" />
+
+        <!-- Table Top Perspective Planks (Horizontal Wood Slabs) -->
+        <!-- Plank 1 (Rear Plank, furthest in perspective) -->
+        <polygon points="585,650 1415,650 1410,682 525,682" fill="url(#table-plank-1)" />
+        <line x1="585" y1="650" x2="1415" y2="650" stroke="#253547" stroke-width="1.5" />
+        <line x1="525" y1="682" x2="1410" y2="682" stroke="#070a0e" stroke-width="3" />
+
+        <!-- Plank 2 -->
+        <polygon points="525,682 1410,682 1402,716 460,716" fill="url(#table-plank-2)" />
+        <line x1="525" y1="684" x2="1410" y2="684" stroke="#283a4f" stroke-width="1.5" />
+        <line x1="460" y1="716" x2="1402" y2="716" stroke="#070a0e" stroke-width="3" />
+
+        <!-- Plank 3 -->
+        <polygon points="460,716 1402,716 1394,752 395,752" fill="url(#table-plank-3)" />
+        <line x1="460" y1="718" x2="1402" y2="718" stroke="#2f4258" stroke-width="1.5" />
+        <line x1="395" y1="752" x2="1394" y2="752" stroke="#070a0e" stroke-width="3" />
+
+        <!-- Plank 4 -->
+        <polygon points="395,752 1394,752 1385,788 340,788" fill="url(#table-plank-4)" />
+        <line x1="395" y1="754" x2="1394" y2="754" stroke="#364b63" stroke-width="1.5" />
+        <line x1="340" y1="788" x2="1385" y2="788" stroke="#070a0e" stroke-width="3" />
+
+        <!-- Plank 5 (Front Edge Plank) -->
+        <polygon points="340,788 1385,788 1375,828 355,828" fill="url(#table-plank-5)" />
+        <line x1="340" y1="790" x2="1385" y2="790" stroke="#415875" stroke-width="1.5" />
+
+        <!-- Table Left End-Grain Cuts / Rustic Chamfers -->
+        <polygon
+          points="585,650 525,682 460,716 395,752 340,788 355,828 335,822 340,780 385,745 450,710 515,676 575,645"
+          fill="#121b24" />
+
+        <!-- Table Front Thick Bevel Edge Face -->
+        <polygon points="355,828 1375,828 1370,850 360,850" fill="#121821" />
+        <line x1="355" y1="828" x2="1375" y2="828" stroke="#486282" stroke-width="2" />
+        <line x1="360" y1="850" x2="1370" y2="850" stroke="#06090d" stroke-width="2" />
+
+        <!-- Warm Candlelight Table Top Illumination (Active when candle is lit, naturally clipped to planks) -->
+        <g class="candle-lit-layer" clip-path="url(#table-top-clip)">
+          <ellipse cx="800" cy="735" rx="460" ry="140" fill="url(#table-lit-wood-glow)" />
+          <!-- Warm Wood Plank Joint Highlights -->
+          <line x1="585" y1="650" x2="1100" y2="650" stroke="#fca846" stroke-width="1.5" opacity="0.6" />
+          <line x1="525" y1="684" x2="1140" y2="684" stroke="#ffbb58" stroke-width="1.5" opacity="0.7" />
+          <line x1="460" y1="718" x2="1180" y2="718" stroke="#ffc868" stroke-width="2" opacity="0.8" />
+          <line x1="395" y1="754" x2="1200" y2="754" stroke="#ffbe58" stroke-width="2" opacity="0.75" />
+        </g>
+        <line class="candle-lit-layer" x1="355" y1="828" x2="1080" y2="828" stroke="#ffbe58" stroke-width="2"
+          opacity="0.85" />
+      </g>
+
+      <!-- ====================================================================
+           LAYER 7: Memory / Gift Box (Classic Lidded Keepsake Box)
+           ==================================================================== -->
+      <g id="layer-memory-box">
+        <!-- Box Base Contact Shadow on Table Planks -->
+        <polygon points="972,725 1242,725 1302,707 1312,722 978,736" fill="#070a0e" opacity="0.92"
+          filter="url(#shadow-blur)" />
+
+        <!-- Soft Ambient Shadow on Table beneath Floating Lid (Fades in when open) -->
+        <ellipse id="box-lid-table-shadow" cx="960" cy="735" rx="150" ry="32" fill="url(#box-lid-landed-shadow-grad)"
+          filter="url(#shadow-blur)" />
+
+        <!-- Cosmic Table Underglow (Revealed when open) -->
+        <ellipse id="box-table-cosmic-underglow" cx="1138" cy="725" rx="190" ry="36"
+          fill="url(#box-table-cosmic-glow)" />
+
+        <!-- ------------------------------------------------------------------
+             Inside Cavity & Core Light (Visible when lid is removed)
+             ------------------------------------------------------------------ -->
+        <!-- Volumetric Core Light Beam Cone streaming out of the box into the sky -->
+        <polygon id="box-volumetric-beam" points="760,0 1516,0 1296,582 1240,600 980,600"
+          fill="url(#box-volumetric-beam-grad)" />
+
+        <!-- Open Cavity Interior Base -->
+        <polygon points="980,600 1240,600 1296,582 1036,582" fill="url(#box-cavity-inner-grad)" />
+
+        <!-- Inner Cavity Radiant Core Awakening -->
+        <g id="box-core-burst-group">
+          <ellipse cx="1138" cy="591" rx="125" ry="16" fill="url(#box-interior-glow)" />
+          <ellipse cx="1138" cy="591" rx="75" ry="9" fill="#ffffff" filter="url(#soft-glow)" />
+          <ellipse cx="1138" cy="591" rx="35" ry="4.5" fill="#ffffff" />
+        </g>
+
+        <!-- ====================================================================
+             Floating Greeting Card (Physically emerges from INSIDE the box cavity)
+             ==================================================================== -->
+        <g id="floating-box-card" class="floating-card-group">
+          <!-- Floating Magical Aura Glow -->
+          <ellipse cx="1210" cy="425" rx="110" ry="95" fill="url(#card-aura-glow)" filter="url(#card-magic-glow)"
+            opacity="0.75" class="floating-aura" />
+
+          <!-- Interactive Slanted 3D Card (Tilted +38deg, no text) -->
+          <g class="mini-card-container" transform="translate(1210, 425) rotate(38)">
+            <!-- Ambient Drop Shadow -->
+            <rect x="-42" y="-56" width="80" height="110" rx="4" fill="#030508" opacity="0.45"
+              filter="url(#shadow-blur)" transform="translate(6, 8)" />
+
+            <!-- Back Leaf (Visible offset to show 3D book depth) -->
+            <rect x="-36" y="-60" width="80" height="110" rx="4" fill="#0c1524" stroke="#cca544" stroke-width="1.2" />
+            <line x1="-36" y1="-60" x2="-36" y2="50" stroke="#ffd700" stroke-width="2" />
+
+            <!-- Front Leaf (Cover facing viewer) -->
+            <rect x="-40" y="-54" width="80" height="110" rx="4" fill="#101a2d" stroke="#e0b852" stroke-width="2.2" />
+
+            <!-- Inner Gold Border Frame -->
+            <rect x="-35" y="-49" width="70" height="100" rx="3" fill="#16233a" stroke="#aa8838" stroke-width="1"
+              opacity="0.9" />
+
+            <!-- Left Fold Spine Line -->
+            <line x1="-40" y1="-54" x2="-40" y2="56" stroke="#ffd700" stroke-width="2" />
+
+            <!-- Matchstick & Burning Candle at bottom left -->
+            <line x1="-26" y1="38" x2="-18" y2="18" stroke="#d4a373" stroke-width="2.6" stroke-linecap="round" />
+            <!-- Flame with warm soft glow -->
+            <ellipse cx="-17" cy="14" rx="4.5" ry="6" fill="#ff7700" filter="url(#soft-glow)" />
+            <ellipse cx="-17" cy="14" rx="2.8" ry="4.2" fill="#ffea78" />
+            <ellipse cx="-17" cy="14" rx="1.3" ry="2.2" fill="#ffffff" />
+            <!-- Mini White Candle Stick -->
+            <rect x="-18" y="24" width="6.5" height="16" fill="#f4f6f8" rx="1" />
+            <rect x="-17" y="24" width="2" height="16" fill="#e0e4e8" />
+
+            <!-- Sparkling Gold Constellation Stars on Cover -->
+            <g fill="#ffd700">
+              <polygon points="12,-26 14,-22 18,-22 15,-19 16,-15 12,-18 8,-15 9,-19 6,-22 10,-22" />
+              <polygon points="-8,-12 -6,-9 -2,-9 -5,-7 -4,-3 -8,-5 -12,-3 -11,-7 -14,-9 -10,-9"
+                transform="scale(0.85)" />
+              <polygon points="15,10 17,13 20,13 18,15 19,18 15,16 11,18 12,15 10,13 13,13" transform="scale(0.75)" />
+
+              <circle cx="-16" cy="-35" r="1.8" />
+              <circle cx="2" cy="-38" r="2.2" />
+              <circle cx="22" cy="-34" r="1.6" />
+              <circle cx="28" cy="-14" r="1.9" />
+              <circle cx="-6" cy="-3" r="1.7" />
+              <circle cx="20" cy="5" r="2.2" />
+              <circle cx="10" cy="32" r="1.8" />
+              <circle cx="-20" cy="-20" r="1.5" />
+
+              <line x1="-16" y1="-35" x2="2" y2="-38" stroke="#e0c384" stroke-width="0.8" opacity="0.6" />
+              <line x1="2" y1="-38" x2="12" y2="-26" stroke="#e0c384" stroke-width="0.8" opacity="0.6" />
+              <line x1="12" y1="-26" x2="22" y2="-34" stroke="#e0c384" stroke-width="0.8" opacity="0.6" />
+              <line x1="12" y1="-26" x2="-6" y2="-3" stroke="#e0c384" stroke-width="0.8" opacity="0.5" />
+            </g>
+
+            <!-- Golden Crescent Moon Accent -->
+            <path d="M -12 -38 A 7 7 0 0 0 -5 -45 A 9 9 0 1 1 -12 -38 Z" fill="#ffd700" opacity="0.9" />
+          </g>
+        </g>
+
+        <!-- ------------------------------------------------------------------
+             Box Body Base (Front Face & Right Side Face)
+             ------------------------------------------------------------------ -->
+        <!-- Front Face of Box Body -->
+        <polygon points="980,600 1240,600 1240,725 980,725" fill="url(#box-body-front-grad)" />
+        <!-- Right Side Face of Box Body -->
+        <polygon points="1240,600 1296,582 1296,707 1240,725" fill="url(#box-body-side-grad)" />
+
+        <!-- Open Rim Inner Lip Lines (Visible when lid is off) -->
+        <line x1="980" y1="600" x2="1240" y2="600" stroke="#707d8d" stroke-width="1.5" />
+        <line x1="1240" y1="600" x2="1296" y2="582" stroke="#525d6b" stroke-width="1.5" />
+        <line x1="1036" y1="582" x2="1296" y2="582" stroke="#373f49" stroke-width="1.5" />
+        <line x1="980" y1="600" x2="1036" y2="582" stroke="#373f49" stroke-width="1.5" />
+
+        <!-- Glowing Inner Rim Highlight when Open -->
+        <polygon id="box-rim-glow" points="980,600 1240,600 1296,582 1036,582" stroke="#84f6ff" stroke-width="2.5"
+          fill="none" filter="url(#soft-glow)" />
+
+        <!-- Warm Candlelight Wash on Box Front Face (Active when lit) -->
+        <polygon class="candle-lit-layer" points="980,600 1240,600 1240,725 980,725" fill="url(#box-lit-face-glow)" />
+
+        <!-- Candle Cast Shadow on Box Body Front (Exact silhouette matching reference) -->
+        <g id="candle-shadow-on-box" class="candle-shadow-part">
+          <path d="M 1045 600
+                   L 1085 600
+                   L 1085 675
+                   C 1085 683, 1092 688, 1090 700
+                   C 1088 712, 1104 720, 1106 725
+                   L 1014 725
+                   C 1016 720, 1032 712, 1030 700
+                   C 1028 688, 1045 683, 1045 675
+                   Z" fill="#182028" />
+        </g>
+
+        <!-- ------------------------------------------------------------------
+             Box Lid Group (Classic Overhanging Lid that Pops & Lands on Left)
+             ------------------------------------------------------------------ -->
+        <g id="box-lid-group">
+          <!-- Lid Top Surface -->
+          <polygon points="974,592 1246,592 1304,574 1032,574" fill="url(#box-lid-top-grad)" />
+          <line x1="1032" y1="574" x2="1304" y2="574" stroke="#7e8e9f" stroke-width="1.5" />
+          <line x1="974" y1="592" x2="1032" y2="574" stroke="#485360" stroke-width="1.5" />
+
+          <!-- Candle Shadow on Lid Top Surface -->
+          <path class="candle-shadow-part" d="M 1045 592
+                   L 1085 592
+                   L 1082 580
+                   C 1082 580, 1076 574, 1072 574
+                   C 1068 574, 1063 569, 1066 565
+                   L 1060 565
+                   C 1058 571, 1062 576, 1056 580
+                   L 1048 580
+                   Z" fill="#1c242e" />
+
+          <!-- Warm Candlelight Wash on Lid Top Surface (Active when lit) -->
+          <polygon class="candle-lit-layer" points="974,592 1246,592 1304,574 1032,574"
+            fill="url(#box-lid-top-lit-glow)" />
+
+          <!-- Lid Front Skirt (Rim Overhang) -->
+          <polygon points="974,592 1246,592 1246,626 974,626" fill="url(#box-lid-rim-front)" />
+          <line x1="974" y1="592" x2="1246" y2="592" stroke="#788798" stroke-width="1.5" />
+          <line x1="974" y1="626" x2="1246" y2="626" stroke="#586574" stroke-width="1.5" />
+
+          <!-- Candle Shadow on Lid Front Skirt -->
+          <rect class="candle-shadow-part" x="1045" y="592" width="40" height="34" fill="#182028" />
+
+          <!-- Warm Candlelight Wash on Lid Front Skirt (Active when lit) -->
+          <polygon class="candle-lit-layer" points="974,592 1246,592 1246,626 974,626"
+            fill="url(#box-lid-rim-lit-glow)" />
+
+          <!-- Warm Edge Highlights when Candle is Lit -->
+          <line class="candle-lit-layer" x1="974" y1="592" x2="1032" y2="574" stroke="#ffd699" stroke-width="2"
+            opacity="0.65" />
+          <line class="candle-lit-layer" x1="974" y1="592" x2="1246" y2="592" stroke="#ffc070" stroke-width="1.5"
+            opacity="0.5" />
+          <line class="candle-lit-layer" x1="974" y1="626" x2="1246" y2="626" stroke="#ffb055" stroke-width="1.5"
+            opacity="0.45" />
+
+          <!-- Lid Right Skirt (Side Rim) -->
+          <polygon points="1246,592 1304,574 1304,608 1246,626" fill="url(#box-lid-rim-side)" />
+          <line x1="1246" y1="592" x2="1246" y2="626" stroke="#485360" stroke-width="1.5" />
+          <line x1="1246" y1="626" x2="1304" y2="608" stroke="#373f49" stroke-width="1.5" />
+          <line x1="1304" y1="574" x2="1304" y2="608" stroke="#252b32" stroke-width="1.5" />
+
+          <!-- Drop Shadow of Lid Rim onto Body -->
+          <polygon points="976,626 1244,626 1244,633 976,633" fill="#141a22" opacity="0.55" />
+        </g>
+      </g>
+
+      <!-- ====================================================================
+           LAYER 8: Vintage Brass Chamberstick Candlestick (Foreground)
+           ==================================================================== -->
+      <g id="layer-candlestick">
+        <!-- ------------------------------------------------------------------
+             Candlestick Shadow on Table Surface
+             ------------------------------------------------------------------ -->
+        <path d="M 850 730 C 915 722, 975 724, 1020 725 C 1050 728, 1015 748, 955 750 C 895 750, 845 744, 830 735 Z"
+          fill="#070a0e" opacity="0.92" filter="url(#shadow-blur)" />
+
+        <!-- ------------------------------------------------------------------
+             Brass Saucer Base (Chamberstick Dish - Closer to Viewpoint)
+             ------------------------------------------------------------------ -->
+        <!-- Outer Saucer Lip Rim (Deep 3D Ellipse) -->
+        <ellipse cx="815" cy="730" rx="130" ry="26" fill="url(#brass-saucer-grad)" />
+        <ellipse cx="815" cy="730" rx="130" ry="26" stroke="#687353" stroke-width="1.5" fill="none" />
+
+        <!-- Saucer Inner Well Recess -->
+        <ellipse cx="815" cy="727" rx="106" ry="19" fill="#1f2419" />
+        <ellipse cx="815" cy="727" rx="106" ry="19" stroke="#333b2a" stroke-width="1.5" fill="none" />
+
+        <!-- ------------------------------------------------------------------
+             Finger Loop Handle on Left
+             ------------------------------------------------------------------ -->
+        <!-- Outer Loop Path -->
+        <path d="M 750 720 C 695 722, 670 686, 688 658 C 705 630, 745 648, 762 668" stroke="url(#brass-stem-grad)"
+          stroke-width="14" fill="none" stroke-linecap="round" />
+        <!-- Inner cutout shadow for 3D loop hole -->
+        <path d="M 747 716 C 702 718, 683 688, 698 664 C 710 644, 742 656, 755 672" stroke="#161c12" stroke-width="2"
+          fill="none" />
+        <!-- Top thumb rest spur -->
+        <path d="M 705 642 C 700 632, 690 628, 678 632" stroke="#5d664b" stroke-width="6.5" fill="none"
+          stroke-linecap="round" />
+
+        <!-- ------------------------------------------------------------------
+             Turned Candlestick Socket & Pillar Stem
+             ------------------------------------------------------------------ -->
+        <!-- Base Socket Ring -->
+        <ellipse cx="815" cy="708" rx="30" ry="9" fill="#3a422f" />
+        <ellipse cx="815" cy="708" rx="30" ry="9" stroke="#5a6549" stroke-width="1" fill="none" />
+
+        <!-- Turned Neck / Baluster Profile -->
+        <path d="M 800 706 C 794 676, 798 654, 794 615 L 836 615 C 832 654, 836 676, 830 706 Z"
+          fill="url(#brass-stem-grad)" />
+
+        <!-- Stem Center Highlight Ridge -->
+        <line x1="811" y1="618" x2="811" y2="702" stroke="#7e8a67" stroke-width="2" />
+
+        <!-- Candle Cup Collar -->
+        <ellipse cx="815" cy="615" rx="32" ry="9.5" fill="#4d573d" />
+        <ellipse cx="815" cy="615" rx="32" ry="9.5" stroke="#727e5b" stroke-width="1.5" fill="none" />
+        <ellipse cx="815" cy="612" rx="25" ry="7" fill="#23291c" />
+
+        <!-- ------------------------------------------------------------------
+             White Wax Candle & Wick
+             ------------------------------------------------------------------ -->
+        <!-- Candle Body Cylinder -->
+        <rect x="794" y="465" width="42" height="150" fill="url(#candle-wax-grad)" />
+        <line x1="794" y1="465" x2="794" y2="614" stroke="#a0a5ab" stroke-width="1.5" />
+        <line x1="836" y1="465" x2="836" y2="614" stroke="#686d73" stroke-width="1.5" />
+
+        <!-- Melted Wax Texture / Vertical Drips on Side -->
+        <path d="M 804 465 C 804 500, 808 518, 806 540 C 804 550, 800 545, 800 530" stroke="#e8ebed" stroke-width="2.5"
+          fill="none" stroke-linecap="round" />
+        <path d="M 828 465 C 828 492, 831 506, 830 524" stroke="#aab0b6" stroke-width="2" fill="none"
+          stroke-linecap="round" />
+
+        <!-- Candle Top Melted Edge & Wax Pool -->
+        <path d="M 794 469 C 794 457, 816 455, 836 459 C 836 471, 794 473, 794 469 Z" fill="#dce0e3" />
+        <ellipse cx="815" cy="462" rx="21" ry="6.5" fill="#f0f2f4" />
+        <ellipse cx="815" cy="462" rx="17" ry="5" fill="#c4c9cd" />
+
+        <!-- Candle Burnt Wick -->
+        <path d="M 815 462 C 813 448, 817 441, 822 436" stroke="#0e1114" stroke-width="3.5" fill="none"
+          stroke-linecap="round" />
+        <circle cx="822" cy="436" r="2" fill="#1e1814" />
+
+        <!-- ------------------------------------------------------------------
+             Candle Flame Group (Illuminates when clicked!)
+             ------------------------------------------------------------------ -->
+        <g id="candle-flame-group" class="candle-lit-layer">
+          <!-- Outer Soft Flame Halo -->
+          <ellipse cx="815" cy="415" rx="80" ry="95" fill="url(#flame-glow-halo)" opacity="0.65"
+            filter="url(#flame-soft-glow)" />
+
+          <!-- Outer Teardrop Candle Flame -->
+          <path
+            d="M 815 350 C 800 380, 791 402, 793 422 C 795 440, 804 446, 815 446 C 826 446, 835 440, 837 422 C 839 402, 830 380, 815 350 Z"
+            fill="url(#flame-outer-grad)" />
+
+          <!-- Inner White-Hot Flame Core -->
+          <path
+            d="M 815 375 C 807 395, 803 410, 804 424 C 805 436, 809 441, 815 441 C 821 441, 825 436, 826 424 C 827 410, 823 395, 815 375 Z"
+            fill="url(#flame-inner-grad)" />
+
+          <!-- Base Blue Flame Nuance -->
+          <ellipse cx="815" cy="443" rx="11" ry="4" fill="#2b7fff" opacity="0.7" />
+        </g>
+
+        <!-- ------------------------------------------------------------------
+             Candle Ember & Smoke Wisps (Appears softly when blown out)
+             ------------------------------------------------------------------ -->
+        <!-- Candle Ember Tip (Glows red-hot and fades when blown out) -->
+        <circle id="candle-ember" class="candle-ember-layer" cx="822" cy="436" r="3" fill="#ff4d15"
+          filter="url(#flame-soft-glow)" />
+
+        <!-- Candle Smoke Wisps (3 organic curved strands appearing softly when blown out) -->
+        <g id="candle-smoke" class="candle-smoke-layer">
+          <!-- Main Center Wisp -->
+          <path class="smoke-wisp smoke-wisp-main"
+            d="M 822 436 C 818 405, 832 380, 820 350 C 808 320, 828 290, 816 260"
+            stroke="#dbe7f3" stroke-width="2.8" fill="none" stroke-linecap="round" filter="url(#soft-glow)" />
+          <!-- Left Floating Tendril -->
+          <path class="smoke-wisp smoke-wisp-left"
+            d="M 822 436 C 814 415, 806 390, 812 368 C 818 344, 804 322, 808 298"
+            stroke="#9bb2ca" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.75" />
+          <!-- Right Gentle Drift Wisp -->
+          <path class="smoke-wisp smoke-wisp-right"
+            d="M 822 436 C 828 418, 836 395, 830 372 C 824 348, 838 326, 832 302"
+            stroke="#c4d6e8" stroke-width="2.0" fill="none" stroke-linecap="round" opacity="0.8" />
+        </g>
+      </g>
+
+      <!-- ====================================================================
+           LAYER 9: Comic Speech Bubble ("Hãy tắt nến trước khi mở hộp")
+           ==================================================================== -->
+      <g id="box-speech-bubble" class="comic-speech-bubble">
+        <!-- Comic Bubble Drop Shadow -->
+        <path d="M 915 450 
+                 H 1305 
+                 A 32 32 0 0 1 1337 482 
+                 V 508 
+                 A 32 32 0 0 1 1305 540 
+                 H 1130 
+                 L 1105 572 
+                 L 1090 540 
+                 H 915 
+                 A 32 32 0 0 1 883 508 
+                 V 482 
+                 A 32 32 0 0 1 915 450 Z" fill="#06090d" opacity="0.35" transform="translate(0, 6)" />
+
+        <!-- Comic Bubble Background & Bold Comic Border -->
+        <path d="M 915 450 
+                 H 1305 
+                 A 32 32 0 0 1 1337 482 
+                 V 508 
+                 A 32 32 0 0 1 1305 540 
+                 H 1130 
+                 L 1105 572 
+                 L 1090 540 
+                 H 915 
+                 A 32 32 0 0 1 883 508 
+                 V 482 
+                 A 32 32 0 0 1 915 450 Z" fill="#ffffff" stroke="#121822" stroke-width="3.5" stroke-linejoin="round" />
+
+        <!-- Speech Bubble Text -->
+        <text x="1110" y="503" text-anchor="middle" font-family="'Segoe UI', Roboto, -apple-system, sans-serif"
+          font-weight="700" font-size="20" fill="#121822" letter-spacing="0.5">Hãy tắt nến trước khi mở hộp</text>
+      </g>
+    </svg>
+
+    <!-- Transparent 60FPS Particle Canvas Layer -->
+    <canvas id="magic-cosmic-canvas" class="canvas-layer"></canvas>
+
+    <!-- ====================================================================
+         MODAL: 3D Pop-up Greeting Card (Double-Page Horizontal Book - Image 2 & 3)
+         ==================================================================== -->
+    <div id="birthday-card-modal" class="card-modal-backdrop" aria-hidden="true">
+      <div class="card-modal-content">
+        <!-- Close Button -->
+        <button id="close-card-btn" class="card-close-button" title="Đóng thiệp" aria-label="Đóng thiệp">
+          <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <!-- 3D Perspective Scene -->
+        <div class="card-scene">
+          <div id="greeting-card-3d" class="book-3d">
+
+            <!-- ==========================================
+                 LEFT FLAP (Cover when closed -> Left Page when opened)
+                 ========================================== -->
+            <div class="book-flap-left">
+
+              <!-- FRONT FACE (Cover when closed - Image 2) -->
+              <div class="book-page book-cover-front">
+                <div class="cover-texture-bg">
+                  <!-- Constellation Stars scattered on cover -->
+                  <div class="cover-stars-constellation">
+                    <span class="cover-star cs-1">✦</span>
+                    <span class="cover-star cs-2">★</span>
+                    <span class="cover-star cs-3">✦</span>
+                    <span class="cover-star cs-4">★</span>
+                    <span class="cover-star cs-5">✦</span>
+                    <span class="cover-star cs-6">✨</span>
+                    <span class="cover-star cs-7">★</span>
+                    <span class="cover-star cs-8">✦</span>
+                    <span class="cover-star cs-9">✨</span>
+                    <span class="cover-star cs-10">★</span>
+                  </div>
+
+                  <!-- Gold Foil Typography -->
+                  <div class="cover-header-text">
+                    <h2 class="cover-title-1">Mở ra...</h2>
+                    <h3 class="cover-title-2">Để Nhận Điều</h3>
+                    <h1 class="cover-title-3">Bất Ngờ</h1>
+                  </div>
+
+                  <!-- Matchstick & Candle at bottom left -->
+                  <div class="cover-candle-illustration">
+                    <div class="cover-matchstick">
+                      <div class="match-wood"></div>
+                      <div class="match-flame">
+                        <div class="flame-core"></div>
+                      </div>
+                    </div>
+                    <div class="cover-candle-stick">
+                      <div class="candle-wax-body"></div>
+                      <div class="candle-wax-drip"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- BACK FACE (Left page inside when opened: 3D Paper-cut Shadowbox - Image 3 Left) -->
+              <div class="book-page book-page-left-inside">
+                <div class="paper-cut-shadowbox">
+
+                  <!-- SVG Layered Cutouts Tunnel -->
+                  <svg class="shadowbox-svg" viewBox="0 0 500 540" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <radialGradient id="sb-center-glow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#fffbe6" stop-opacity="1" />
+                        <stop offset="35%" stop-color="#ffe699" stop-opacity="0.95" />
+                        <stop offset="70%" stop-color="#ffb84d" stop-opacity="0.6" />
+                        <stop offset="100%" stop-color="#724c9f" stop-opacity="0" />
+                      </radialGradient>
+                      <filter id="sb-paper-shadow-1" x="-10%" y="-10%" width="120%" height="120%">
+                        <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#140c24" flood-opacity="0.55" />
+                      </filter>
+                      <filter id="sb-paper-shadow-2" x="-10%" y="-10%" width="120%" height="120%">
+                        <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#140c24" flood-opacity="0.65" />
+                      </filter>
+                      <filter id="sb-paper-shadow-3" x="-10%" y="-10%" width="120%" height="120%">
+                        <feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#0b0614" flood-opacity="0.75" />
+                      </filter>
+                    </defs>
+
+                    <!-- Outer Paper Layer 1 (Dark Twilight Blue-Violet) -->
+                    <rect width="500" height="540" fill="#1b2338" />
+
+                    <!-- Layer 2 (Deep Indigo Cutout Contour) -->
+                    <path
+                      d="M 30 25 C 140 10, 360 12, 470 25 C 490 180, 485 360, 470 515 C 360 530, 140 528, 30 515 C 12 360, 15 180, 30 25 Z"
+                      fill="#292745" filter="url(#sb-paper-shadow-1)" />
+
+                    <!-- Layer 3 (Lavender / Mauve Cutout) -->
+                    <path
+                      d="M 60 55 C 160 40, 340 42, 440 55 C 460 190, 455 350, 440 485 C 340 500, 160 498, 60 485 C 45 350, 48 190, 60 55 Z"
+                      fill="#4a3e66" filter="url(#sb-paper-shadow-2)" />
+
+                    <!-- Layer 4 (Soft Sky Pastel Periwinkle) -->
+                    <path
+                      d="M 95 90 C 180 75, 320 78, 405 90 C 425 200, 420 330, 405 440 C 320 455, 180 452, 95 440 C 80 330, 82 200, 95 90 Z"
+                      fill="#6d79a3" filter="url(#sb-paper-shadow-2)" />
+
+                    <!-- Layer 5 (Mint / Pastel Lilac Wave) -->
+                    <path
+                      d="M 130 125 C 200 110, 300 112, 370 125 C 388 210, 385 308, 370 395 C 300 410, 200 408, 130 395 C 118 308, 120 210, 130 125 Z"
+                      fill="#9b91be" filter="url(#sb-paper-shadow-2)" />
+
+                    <!-- Layer 6 (Cream Paper Rim) -->
+                    <path
+                      d="M 160 155 C 215 142, 285 144, 340 155 C 355 220, 352 285, 340 348 C 285 360, 215 358, 160 348 C 150 285, 152 220, 160 155 Z"
+                      fill="#e8dec8" filter="url(#sb-paper-shadow-3)" />
+
+                    <!-- Radiant Golden Cosmic Light Center Tunnel -->
+                    <ellipse cx="250" cy="250" rx="90" ry="85" fill="url(#sb-center-glow)" />
+
+                    <!-- Rings Planet (Saturn in top right) -->
+                    <g transform="translate(415, 95) rotate(-22)">
+                      <ellipse cx="0" cy="0" rx="22" ry="7" fill="none" stroke="#e0c384" stroke-width="2.5"
+                        opacity="0.85" />
+                      <circle cx="0" cy="0" r="14" fill="#9c7dc7" />
+                      <ellipse cx="0" cy="0" rx="22" ry="7" fill="none" stroke="#ffd980" stroke-width="2.5"
+                        clip-path="polygon(-25,-10 25,-10 25,0 -25,0)" opacity="0.9" />
+                    </g>
+
+                    <!-- Small Planet top left -->
+                    <circle cx="85" cy="140" r="10" fill="#78a8d6" />
+                    <ellipse cx="85" cy="140" rx="15" ry="4.5" fill="none" stroke="#d5e8ff" stroke-width="1.5"
+                      transform="rotate(15 85 140)" />
+
+                    <!-- Gold Stars on paper cut layers -->
+                    <g fill="#ffd700">
+                      <circle cx="110" cy="110" r="2.5" />
+                      <circle cx="180" cy="85" r="3" />
+                      <circle cx="320" cy="80" r="2.5" />
+                      <circle cx="370" cy="170" r="3" />
+                      <circle cx="360" cy="370" r="2.5" />
+                      <circle cx="140" cy="380" r="3" />
+                      <circle cx="210" cy="405" r="2" />
+                      <circle cx="290" cy="405" r="2" />
+                    </g>
+
+                    <!-- Center Greeting Typography in Glowing Tunnel -->
+                    <text x="250" y="215" font-family="'Mali', 'Caveat', 'Be Vietnam Pro', cursive, sans-serif"
+                      font-weight="700" font-size="30" fill="#3b2416" text-anchor="middle"
+                      letter-spacing="3">HAPPY</text>
+                    <text x="250" y="258" font-family="'Mali', 'Caveat', 'Be Vietnam Pro', cursive, sans-serif"
+                      font-weight="800" font-size="36" fill="#2d1a10" text-anchor="middle"
+                      letter-spacing="2">BIRTHDAY</text>
+                    <text x="250" y="298" font-family="'Playwrite VN', 'Mali', 'Caveat', cursive, sans-serif"
+                      font-weight="700" font-size="26" fill="#3b2416" text-anchor="middle">Lâm Oanh</text>
+
+                    <!-- Silhouette of girl standing at the bottom glowing gate -->
+                    <g class="girl-silhouette" transform="translate(250, 348)">
+                      <ellipse cx="0" cy="2" rx="11" ry="3.5" fill="#120c1a" opacity="0.6" />
+                      <path
+                        d="M -4,-28 C -4,-32, -1,-35, 0,-35 C 1,-35, 4,-32, 4,-28 C 4,-24, 1,-22, 0,-22 C -1,-22, -4,-24, -4,-28 Z"
+                        fill="#1a1224" />
+                      <path
+                        d="M -5,-32 C -7,-29, -6,-23, -4,-20 C -3,-20, -4,-27, 0,-29 C 4,-27, 3,-20, 4,-20 C 6,-23, 7,-29, 5,-32 Z"
+                        fill="#120a1c" />
+                      <path d="M -2,-22 L -9,-2 C -6,0, 6,0, 9,-2 L 2,-22 Z" fill="#1a1224" />
+                      <line x1="-3" y1="-2" x2="-3" y2="2" stroke="#1a1224" stroke-width="2" stroke-linecap="round" />
+                      <line x1="3" y1="-2" x2="3" y2="2" stroke="#1a1224" stroke-width="2" stroke-linecap="round" />
+                    </g>
+                  </svg>
+
+                  <!-- Mini Polaroids & Fanboy Ticket pinned on corners of Left Page -->
+                  <div class="polaroid-pin polaroid-top-left">
+                    <div class="polaroid-photo">
+                      <img src="images/polaroid_1.jpg" alt="Kỷ niệm đẹp 1" />
+                    </div>
+                    <div class="vintage-ticket-tag">TICKET</div>
+                  </div>
+
+                  <div class="polaroid-pin polaroid-top-right">
+                    <div class="polaroid-photo">
+                      <img src="images/polaroid_2.jpg" alt="Kỷ niệm đẹp 2" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ==========================================
+                 RIGHT BASE PAGE (Stationery Letter - Image 3 Right)
+                 ========================================== -->
+            <div class="book-page book-page-right">
+              <div class="stationery-paper">
+
+                <!-- Floral Garland Decoration on Left & Bottom -->
+                <div class="floral-garland-decor">
+                  <svg viewBox="0 0 180 180" width="180" height="180" xmlns="http://www.w3.org/2000/svg">
+                    <g class="flower-group">
+                      <!-- Soft Blue Daisy -->
+                      <circle cx="40" cy="140" r="16" fill="#a4c8e8" opacity="0.85" />
+                      <circle cx="40" cy="140" r="7" fill="#ffd97d" />
+                      <!-- Soft Yellow Daisy -->
+                      <circle cx="78" cy="155" r="13" fill="#ffeaa7" opacity="0.9" />
+                      <circle cx="78" cy="155" r="5" fill="#f39c12" />
+                      <!-- Lavender Blossom -->
+                      <circle cx="20" cy="110" r="12" fill="#cbb4e6" opacity="0.85" />
+                      <circle cx="20" cy="110" r="5" fill="#ffeaa7" />
+                      <!-- Stems & Soft Green Leaves -->
+                      <path d="M 10 170 Q 45 150 105 165" stroke="#90b89a" stroke-width="3.5" fill="none"
+                        stroke-linecap="round" />
+                      <path d="M 22 160 Q 18 115 30 80" stroke="#90b89a" stroke-width="3" fill="none"
+                        stroke-linecap="round" />
+                      <ellipse cx="32" cy="95" rx="9" ry="5" fill="#90b89a" transform="rotate(-30 32 95)" />
+                      <ellipse cx="55" cy="158" rx="9" ry="5" fill="#a8cca8" transform="rotate(20 55 158)" />
+                      <ellipse cx="120" cy="165" rx="8" ry="4" fill="#a8cca8" transform="rotate(-15 120 165)" />
+                      <!-- Tiny buds -->
+                      <circle cx="130" cy="158" r="4.5" fill="#d4b8e8" />
+                      <circle cx="142" cy="162" r="4" fill="#a4c8e8" />
+                    </g>
+                  </svg>
+                </div>
+
+                <!-- Top & Right mini planet stickers -->
+                <div class="mini-stationery-stickers">
+                  <span class="sticker-planet">🪐</span>
+                  <span class="sticker-star">✨</span>
+                </div>
+
+                <!-- Lined Letter Body -->
+                <div class="letter-content-box">
+                  <div class="letter-lines-wrapper">
+                    <p class="letter-salutation" data-text="Gửi Lâm Oanh thân mến,"></p>
+                    <p class="letter-body-line"
+                      data-text="Chúc bạn có một ngày sinh nhật ngập tràn niềm vui, tiếng cười và những điều ngọt ngào nhất!">
+                    </p>
+                    <p class="letter-body-line"
+                      data-text="Bước sang tuổi mới, chúc bạn luôn rạng rỡ và tỏa sáng như những vì sao trên bầu trời.">
+                    </p>
+                    <p class="letter-body-line"
+                      data-text="Mong rằng mọi ước nguyện, đam mê và dự định của bạn đều sẽ sớm trở thành hiện thực.">
+                    </p>
+                    <p class="letter-closing" data-text="Happy Birthday to You! ✨🎂"></p>
+                  </div>
+                </div>
+
+                <!-- Bottom Right Mini Polaroid & Ticket Pin -->
+                <div class="polaroid-pin polaroid-bottom-right">
+                  <div class="polaroid-photo">
+                    <img src="images/polaroid_3.jpg" alt="Kỷ niệm đẹp 3" />
+                  </div>
+                  <div class="vintage-ticket-tag">TICKET</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="sound-effects.js"></script>
+  <script src="magic-particles.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const svg = document.querySelector('.svg-canvas');
+      const candle = document.getElementById('layer-candlestick');
+      const box = document.getElementById('layer-memory-box');
+      const smoke = document.getElementById('candle-smoke');
+      const ember = document.getElementById('candle-ember');
+      const bubble = document.getElementById('box-speech-bubble');
+      const floatingCard = document.getElementById('floating-box-card');
+      const cardModal = document.getElementById('birthday-card-modal');
+      const card3D = document.getElementById('greeting-card-3d');
+      const closeCardBtn = document.getElementById('close-card-btn');
+      const cosmicEngine = new CosmicParticleEngine('magic-cosmic-canvas');
+      let bubbleTimer = null;
+
+      function showSpeechBubble() {
+        if (!bubble) return;
+        bubble.classList.remove('is-visible');
+        void bubble.offsetWidth; // trigger reflow
+        bubble.classList.add('is-visible');
+
+        if (bubbleTimer) clearTimeout(bubbleTimer);
+        bubbleTimer = setTimeout(() => {
+          bubble.classList.remove('is-visible');
+        }, 3200);
+      }
+
+      function hideSpeechBubble() {
+        if (bubble) bubble.classList.remove('is-visible');
+        if (bubbleTimer) clearTimeout(bubbleTimer);
+      }
+
+      // Typewriter Effect for Birthday Letter
+      const letterElements = [
+        document.querySelector('.letter-salutation'),
+        ...document.querySelectorAll('.letter-body-line'),
+        document.querySelector('.letter-closing')
+      ].filter(Boolean);
+
+      let typewriterTimeouts = [];
+
+      function cancelTypewriter() {
+        typewriterTimeouts.forEach(t => clearTimeout(t));
+        typewriterTimeouts = [];
+        letterElements.forEach(el => {
+          el.classList.remove('typing-active');
+          el.textContent = '';
+        });
+      }
+
+      function startTypewriter() {
+        cancelTypewriter();
+
+        let cumulativeDelay = 450; // Initial delay while book flap is opening
+
+        letterElements.forEach((el, elIndex) => {
+          const text = el.getAttribute('data-text') || '';
+          if (!text) return;
+
+          const startTimeout = setTimeout(() => {
+            letterElements.forEach(item => item.classList.remove('typing-active'));
+            el.classList.add('typing-active');
+            el.textContent = '';
+
+            let charIndex = 0;
+            function typeNextChar() {
+              if (charIndex < text.length) {
+                const char = text.charAt(charIndex);
+                el.textContent += char;
+                charIndex++;
+
+                if (window.soundEngine) {
+                  window.soundEngine.playTypewriterKey(char);
+                }
+
+                let charSpeed = 26;
+                if (char === ',' || char === '.') charSpeed = 130;
+                else if (char === '!' || char === '?') charSpeed = 180;
+                else if (char === ' ') charSpeed = 35;
+
+                const nextTimeout = setTimeout(typeNextChar, charSpeed);
+                typewriterTimeouts.push(nextTimeout);
+              } else {
+                if (elIndex === letterElements.length - 1) {
+                  if (window.soundEngine) {
+                    window.soundEngine.playTypewriterBell();
+                  }
+                  const doneTimeout = setTimeout(() => {
+                    el.classList.remove('typing-active');
+                  }, 400);
+                  typewriterTimeouts.push(doneTimeout);
+                }
+              }
+            }
+
+            typeNextChar();
+          }, cumulativeDelay);
+
+          typewriterTimeouts.push(startTimeout);
+
+          let lineDuration = text.length * 28 + 260;
+          cumulativeDelay += lineDuration;
+        });
+      }
+
+      function closeCardModal() {
+        if (!cardModal || !cardModal.classList.contains('is-active')) return;
+        if (card3D) card3D.classList.remove('is-card-open');
+        cancelTypewriter();
+        if (window.soundEngine) {
+          window.soundEngine.playCardClose();
+        }
+        cardModal.classList.add('is-closing');
+        setTimeout(() => {
+          if (floatingCard) {
+            floatingCard.classList.remove('is-emerged');
+            floatingCard.classList.add('is-settled');
+            floatingCard.classList.remove('is-hidden-modal');
+            floatingCard.style.opacity = '';
+          }
+          cardModal.classList.remove('is-active');
+          cardModal.classList.remove('is-closing');
+        }, 1100);
+      }
+
+      // Constellations completion hook -> Trigger floating card emergence
+      cosmicEngine.onConstellationsComplete = () => {
+        if (svg && svg.classList.contains('is-box-open') && floatingCard) {
+          if (window.soundEngine) {
+            window.soundEngine.playCardEmerge();
+          }
+          floatingCard.classList.remove('is-hidden-modal');
+          floatingCard.classList.remove('is-settled');
+          floatingCard.style.opacity = '';
+          floatingCard.classList.add('is-emerged');
+          setTimeout(() => {
+            if (floatingCard.classList.contains('is-emerged')) {
+              floatingCard.classList.remove('is-emerged');
+              floatingCard.classList.add('is-settled');
+            }
+          }, 3800);
+        }
+      };
+
+      // Click floating card in the room -> Fly 3D into view
+      if (floatingCard) {
+        floatingCard.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const canOpen = floatingCard.classList.contains('is-emerged') || floatingCard.classList.contains('is-settled');
+          if (canOpen && cardModal) {
+            if (window.soundEngine) {
+              window.soundEngine.playCardFly();
+            }
+            // Measure actual floating card coordinates relative to viewport center
+            const rect = floatingCard.getBoundingClientRect();
+            if (rect.width > 0 && rect.height > 0) {
+              const targetX = rect.left + rect.width / 2 - window.innerWidth / 2;
+              const targetY = rect.top + rect.height / 2 - window.innerHeight / 2;
+              document.documentElement.style.setProperty('--fly-x', `${Math.round(targetX)}px`);
+              document.documentElement.style.setProperty('--fly-y', `${Math.round(targetY)}px`);
+            }
+            // Seamlessly hide in-room card while 3D modal card flies into view
+            floatingCard.classList.add('is-hidden-modal');
+            cardModal.classList.remove('is-closing');
+            cardModal.classList.add('is-active');
+          }
+        });
+      }
+
+      // Click 3D card inside modal -> Toggle Fold / Unfold
+      if (card3D) {
+        card3D.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const willOpen = !card3D.classList.contains('is-card-open');
+          card3D.classList.toggle('is-card-open');
+          if (willOpen) {
+            if (window.soundEngine) {
+              window.soundEngine.playPaperFlip();
+            }
+            startTypewriter();
+          } else {
+            if (window.soundEngine) {
+              window.soundEngine.playCardClose();
+            }
+            cancelTypewriter();
+          }
+        });
+      }
+
+      // Close modal button
+      if (closeCardBtn) {
+        closeCardBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeCardModal();
+        });
+      }
+
+      // Click backdrop to close
+      if (cardModal) {
+        cardModal.addEventListener('click', (e) => {
+          if (e.target === cardModal) {
+            closeCardModal();
+          }
+        });
+      }
+
+      let boxCloseTimer = null;
+
+      function closeBoxGracefully() {
+        if (!svg) return;
+        if (window.soundEngine) {
+          window.soundEngine.playBoxClose();
+        }
+        svg.classList.remove('is-box-open');
+        svg.classList.remove('is-box-closing');
+        void svg.offsetWidth; // trigger reflow
+        svg.classList.add('is-box-closing');
+
+        if (boxCloseTimer) clearTimeout(boxCloseTimer);
+        boxCloseTimer = setTimeout(() => {
+          svg.classList.remove('is-box-closing');
+        }, 1500);
+
+        if (floatingCard) {
+          floatingCard.classList.remove('is-emerged');
+          floatingCard.classList.remove('is-settled');
+          floatingCard.classList.remove('is-hidden-modal');
+          floatingCard.style.opacity = '0';
+          setTimeout(() => {
+            floatingCard.style.opacity = '';
+          }, 800);
+        }
+        closeCardModal();
+        cosmicEngine.stop();
+      }
+
+      // Click candle to toggle lighting / blowing out
+      if (candle && svg) {
+        candle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const wasLit = svg.classList.contains('is-lit');
+          svg.classList.toggle('is-lit');
+
+          if (wasLit) {
+            if (window.soundEngine) {
+              window.soundEngine.playCandleBlow();
+            }
+            // Kích hoạt nhạc nền ngay khi thổi tắt nến
+            playBgm();
+
+            // Blown out -> dismiss speech bubble and rise smoke + glow ember
+            hideSpeechBubble();
+            if (smoke) {
+              smoke.classList.remove('animating');
+              void smoke.offsetWidth; // trigger reflow
+              smoke.classList.add('animating');
+            }
+            if (ember) {
+              ember.classList.remove('animating');
+              void ember.offsetWidth; // trigger reflow
+              ember.classList.add('animating');
+            }
+          } else {
+            if (window.soundEngine) {
+              window.soundEngine.playCandleIgnite();
+            }
+            // Relit -> cancel smoke & ember immediately
+            if (smoke) smoke.classList.remove('animating');
+            if (ember) ember.classList.remove('animating');
+          }
+
+          // If candle is relit while box was open, gently close box & reset card
+          if (!wasLit && svg.classList.contains('is-box-open')) {
+            closeBoxGracefully();
+          }
+        });
+      }
+
+      // Click memory box
+      if (box && svg) {
+        box.addEventListener('click', (e) => {
+          e.stopPropagation();
+
+          // If candle is still lit, shake box and show comic speech bubble!
+          if (svg.classList.contains('is-lit')) {
+            if (window.soundEngine) {
+              window.soundEngine.playBoxLocked();
+            }
+            box.classList.remove('shake');
+            void box.offsetWidth; // trigger reflow
+            box.classList.add('shake');
+            showSpeechBubble();
+            return;
+          }
+
+          // Candle is unlit -> Open / Close box normally
+          hideSpeechBubble();
+          if (svg.classList.contains('is-box-open')) {
+            // Currently open -> close gracefully with arc animation
+            closeBoxGracefully();
+          } else {
+            // Currently closed -> open
+            if (window.soundEngine) {
+              window.soundEngine.playBoxOpen();
+            }
+            svg.classList.remove('is-box-closing');
+            if (boxCloseTimer) clearTimeout(boxCloseTimer);
+            svg.classList.add('is-box-open');
+            cosmicEngine.start();
+          }
+        });
+      }
+
+      // ======================================================================
+      // BACKGROUND MUSIC (BGM) CONTROLLER LOGIC
+      // ======================================================================
+      const bgmAudio = document.getElementById('bgm-audio');
+      const bgmBtn = document.getElementById('bgm-toggle-btn');
+      let isBgmPlaying = false;
+
+      function playBgm() {
+        if (!bgmAudio) return;
+        bgmAudio.volume = 0.45;
+        const playPromise = bgmAudio.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            isBgmPlaying = true;
+            if (bgmBtn) bgmBtn.classList.add('is-playing');
+          }).catch((err) => {
+            console.log('BGM playback waiting for user gesture:', err);
+          });
+        }
+      }
+
+      function pauseBgm() {
+        if (!bgmAudio) return;
+        bgmAudio.pause();
+        isBgmPlaying = false;
+        if (bgmBtn) bgmBtn.classList.remove('is-playing');
+      }
+
+      function toggleBgm() {
+        if (isBgmPlaying) {
+          pauseBgm();
+        } else {
+          playBgm();
+        }
+      }
+
+      if (bgmBtn) {
+        bgmBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleBgm();
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>
